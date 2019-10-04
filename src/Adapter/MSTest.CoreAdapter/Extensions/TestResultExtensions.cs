@@ -44,6 +44,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Extensions
                 unitTestResult.DebugTrace = testResults[i].DebugTrace;
                 unitTestResult.TestContextMessages = testResults[i].TestContextMessages;
                 unitTestResult.Duration = testResults[i].Duration;
+                unitTestResult.TestInitializeDuration = testResults[i].TestInitializeDuration;
+                unitTestResult.TestCleanupDuration = testResults[i].TestCleanupDuration;
                 unitTestResult.DisplayName = testResults[i].DisplayName;
                 unitTestResult.DatarowIndex = testResults[i].DatarowIndex;
                 unitTestResult.ResultFiles = testResults[i].ResultFiles;

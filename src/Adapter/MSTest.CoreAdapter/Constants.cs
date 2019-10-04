@@ -60,6 +60,10 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter
 
         internal static readonly TestProperty InnerResultsCountProperty = TestProperty.Register("InnerResultsCount", InnerResultsCountLabel, typeof(int), TestPropertyAttributes.Hidden, typeof(TestResult));
 
+        internal static readonly TestProperty TestInitializeDurationProperty = TestProperty.Register("TestInitializeDuration", TestInitializeDurationLabel, typeof(DateTime), TestPropertyAttributes.Hidden, typeof(TestCase));
+
+        internal static readonly TestProperty TestCleanupDurationProperty = TestProperty.Register("TestCleanupDuration", TestCleanupDurationLabel, typeof(DateTime), TestPropertyAttributes.Hidden, typeof(TestCase));
+
         internal static readonly TestProperty TestRunIdProperty = TestProperty.Register(TestRunId, TestRunId, typeof(int), TestPropertyAttributes.Hidden, typeof(TestCase));
 
         internal static readonly TestProperty TestPlanIdProperty = TestProperty.Register(TestPlanId, TestPlanId, typeof(int), TestPropertyAttributes.Hidden, typeof(TestCase));
@@ -113,6 +117,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter
         private const string CssIterationLabel = "CssIteration";
         private const string CssProjectStructureLabel = "CssProjectStructure";
         private const string WorkItemIdsLabel = "WorkItemIds";
+        private const string TestInitializeDurationLabel = "TestInitializeDuration";
+        private const string TestCleanupDurationLabel = "TestCleanupDuration";
 
         private const string TestRunId = "__Tfs_TestRunId__";
         private const string TestPlanId = "__Tfs_TestPlanId__";

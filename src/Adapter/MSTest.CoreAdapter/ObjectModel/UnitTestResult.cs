@@ -96,6 +96,16 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel
         public TimeSpan Duration { get; internal set; }
 
         /// <summary>
+        /// Gets the duration of the <see cref="TestInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan TestInitializeDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets  the duration of the <see cref="TestCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan TestCleanupDuration { get; internal set; }
+
+        /// <summary>
         /// Gets the standard output of the result
         /// </summary>
         public string StandardOut { get; internal set; }
@@ -167,6 +177,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel
             testResult.SetPropertyValue<Guid>(Constants.ExecutionIdProperty, this.ExecutionId);
             testResult.SetPropertyValue<Guid>(Constants.ParentExecIdProperty, this.ParentExecId);
             testResult.SetPropertyValue<int>(Constants.InnerResultsCountProperty, this.InnerResultsCount);
+            testResult.SetPropertyValue<TimeSpan>(Constants.TestInitializeDurationProperty, this.TestInitializeDuration);
+            testResult.SetPropertyValue<TimeSpan>(Constants.TestCleanupDurationProperty, this.TestCleanupDuration);
 
             if (!string.IsNullOrEmpty(this.StandardOut))
             {

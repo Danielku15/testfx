@@ -668,7 +668,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
             finally
             {
                 watch.Stop();
-                result.TestInitializeMethodDuration = watch.Elapsed;
+                result.TestInitializeDuration = watch.Elapsed;
             }
 
             return false;

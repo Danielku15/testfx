@@ -96,12 +96,32 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel
         public TimeSpan Duration { get; internal set; }
 
         /// <summary>
-        /// Gets the duration of the <see cref="TestInitializeAttribute"/> method execution.
+        /// Gets the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan AssemblyInitializeDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets  the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.AssemblyCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan AssemblyCleanupDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan ClassInitializeDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets  the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan ClassCleanupDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute"/> method execution.
         /// </summary>
         public TimeSpan TestInitializeDuration { get; internal set; }
 
         /// <summary>
-        /// Gets  the duration of the <see cref="TestCleanupAttribute"/> method execution.
+        /// Gets  the duration of the <see cref="Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute"/> method execution.
         /// </summary>
         public TimeSpan TestCleanupDuration { get; internal set; }
 
@@ -177,6 +197,10 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel
             testResult.SetPropertyValue<Guid>(Constants.ExecutionIdProperty, this.ExecutionId);
             testResult.SetPropertyValue<Guid>(Constants.ParentExecIdProperty, this.ParentExecId);
             testResult.SetPropertyValue<int>(Constants.InnerResultsCountProperty, this.InnerResultsCount);
+            testResult.SetPropertyValue<TimeSpan>(Constants.AssemblyInitializeDurationProperty, this.AssemblyInitializeDuration);
+            testResult.SetPropertyValue<TimeSpan>(Constants.AssemblyCleanupDurationProperty, this.AssemblyCleanupDuration);
+            testResult.SetPropertyValue<TimeSpan>(Constants.ClassInitializeDurationProperty, this.ClassInitializeDuration);
+            testResult.SetPropertyValue<TimeSpan>(Constants.ClassCleanupDurationProperty, this.ClassCleanupDuration);
             testResult.SetPropertyValue<TimeSpan>(Constants.TestInitializeDurationProperty, this.TestInitializeDuration);
             testResult.SetPropertyValue<TimeSpan>(Constants.TestCleanupDurationProperty, this.TestCleanupDuration);
 

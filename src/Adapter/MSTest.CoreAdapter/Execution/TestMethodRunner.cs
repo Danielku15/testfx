@@ -148,6 +148,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                 return new[] { new UnitTestResult(UnitTestOutcome.Ignored, ignoreMessage) };
             }
 
+            bool wasAssemblyInitializeExecuted = this.testMethodInfo.Parent.Parent.IsAssemblyInitializeExecuted;
+            bool wasClassInitializeExecuted = this.testMethodInfo.Parent.IsClassInitializeExecuted;
             try
             {
                 using (LogMessageListener logListener = new LogMessageListener(this.captureDebugTraces))
@@ -200,6 +202,16 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                 firstResult.StandardError = initErrorLogs + firstResult.StandardError;
                 firstResult.DebugTrace = initTrace + firstResult.DebugTrace;
                 firstResult.TestContextMessages = inittestContextMessages + firstResult.TestContextMessages;
+
+                if (!wasAssemblyInitializeExecuted && this.testMethodInfo.Parent.Parent.IsAssemblyInitializeExecuted)
+                {
+                    firstResult.AssemblyInitializeDuration = this.testMethodInfo.Parent.Parent.AssemblyInitializeDuration;
+                }
+
+                if (!wasClassInitializeExecuted && this.testMethodInfo.Parent.IsClassInitializeExecuted)
+                {
+                    firstResult.ClassInitializeDuration = this.testMethodInfo.Parent.ClassInitializeDuration;
+                }
             }
 
             return result;

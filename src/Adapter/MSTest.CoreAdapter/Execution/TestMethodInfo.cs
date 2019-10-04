@@ -580,7 +580,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
             finally
             {
                 watch.Stop();
-                result.TestCleanupMethodDuration = watch;
+                result.TestCleanupDuration = watch.Elapsed;
             }
         }
 

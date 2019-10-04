@@ -60,9 +60,17 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter
 
         internal static readonly TestProperty InnerResultsCountProperty = TestProperty.Register("InnerResultsCount", InnerResultsCountLabel, typeof(int), TestPropertyAttributes.Hidden, typeof(TestResult));
 
-        internal static readonly TestProperty TestInitializeDurationProperty = TestProperty.Register("TestInitializeDuration", TestInitializeDurationLabel, typeof(DateTime), TestPropertyAttributes.Hidden, typeof(TestCase));
+        internal static readonly TestProperty AssemblyInitializeDurationProperty = TestProperty.Register("AssemblyInitializeDuration", AssemblyInitializeDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
 
-        internal static readonly TestProperty TestCleanupDurationProperty = TestProperty.Register("TestCleanupDuration", TestCleanupDurationLabel, typeof(DateTime), TestPropertyAttributes.Hidden, typeof(TestCase));
+        internal static readonly TestProperty AssemblyCleanupDurationProperty = TestProperty.Register("AssemblyCleanupDuration", AssemblyCleanupDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
+
+        internal static readonly TestProperty ClassInitializeDurationProperty = TestProperty.Register("ClassInitializeDuration", ClassInitializeDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
+
+        internal static readonly TestProperty ClassCleanupDurationProperty = TestProperty.Register("ClassCleanupDuration", ClassCleanupDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
+
+        internal static readonly TestProperty TestInitializeDurationProperty = TestProperty.Register("TestInitializeDuration", TestInitializeDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
+
+        internal static readonly TestProperty TestCleanupDurationProperty = TestProperty.Register("TestCleanupDuration", TestCleanupDurationLabel, typeof(TimeSpan), TestPropertyAttributes.Hidden, typeof(TestCase));
 
         internal static readonly TestProperty TestRunIdProperty = TestProperty.Register(TestRunId, TestRunId, typeof(int), TestPropertyAttributes.Hidden, typeof(TestCase));
 
@@ -117,6 +125,10 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter
         private const string CssIterationLabel = "CssIteration";
         private const string CssProjectStructureLabel = "CssProjectStructure";
         private const string WorkItemIdsLabel = "WorkItemIds";
+        private const string AssemblyInitializeDurationLabel = "AssemblyInitializeDuration";
+        private const string AssemblyCleanupDurationLabel = "AssemblyCleanupDuration";
+        private const string ClassInitializeDurationLabel = "ClassInitializeDuration";
+        private const string ClassCleanupDurationLabel = "ClassCleanupDuration";
         private const string TestInitializeDurationLabel = "TestInitializeDuration";
         private const string TestCleanupDurationLabel = "TestCleanupDuration";
 

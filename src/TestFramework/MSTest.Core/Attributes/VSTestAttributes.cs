@@ -491,6 +491,16 @@ namespace Microsoft.VisualStudio.TestTools.UnitTesting
         public TimeSpan Duration { get; set; }
 
         /// <summary>
+        /// Gets or sets the duration of the <see cref="TestInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan TestInitializeDuration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the duration of the <see cref="TestCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan TestCleanupDuration { get; set; }
+
+        /// <summary>
         /// Gets or sets the data row index in data source. Set only for results of individual
         /// run of data row of a data driven test.
         /// </summary>

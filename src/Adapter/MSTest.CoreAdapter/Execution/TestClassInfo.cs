@@ -121,6 +121,16 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
         public Exception ClassInitializationException { get; internal set; }
 
         /// <summary>
+        /// Gets the duration of the <see cref="ClassInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan ClassInitializeDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets the duration of the <see cref="ClassCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan ClassCleanupDuration { get; internal set; }
+
+        /// <summary>
         /// Gets the class cleanup method.
         /// </summary>
         public MethodInfo ClassCleanupMethod
@@ -295,6 +305,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                     // Perform a check again.
                     if (!this.IsClassInitializeExecuted)
                     {
+                        Stopwatch watch = Stopwatch.StartNew();
                         try
                         {
                             this.ClassInitializeMethod.InvokeAsSynchronousTask(null, testContext);
@@ -307,6 +318,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                         finally
                         {
                             this.IsClassInitializeExecuted = true;
+                            watch.Stop();
+                            this.ClassInitializeDuration = watch.Elapsed;
                         }
                     }
                 }
@@ -362,6 +375,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
 
             if (this.IsClassInitializeExecuted || this.ClassInitializeMethod is null || this.BaseClassCleanupMethodsStack.Any())
             {
+                Stopwatch watch = Stopwatch.StartNew();
                 var classCleanupMethod = this.ClassCleanupMethod;
                 try
                 {
@@ -399,6 +413,11 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                         this.ClassCleanupMethod.Name,
                         errorMessage,
                         StackTraceHelper.GetStackTraceInformation(realException)?.ErrorStackTrace);
+                }
+                finally
+                {
+                    watch.Stop();
+                    this.ClassCleanupDuration = watch.Elapsed;
                 }
             }
 

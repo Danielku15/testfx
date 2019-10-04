@@ -1,6 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Diagnostics;
+
 namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
 {
     using System;
@@ -85,6 +87,16 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
         public Exception AssemblyInitializationException { get; internal set; }
 
         /// <summary>
+        /// Gets the duration of the <see cref="AssemblyInitializeAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan AssemblyInitializeDuration { get; internal set; }
+
+        /// <summary>
+        /// Gets the duration of the <see cref="AssemblyCleanupAttribute"/> method execution.
+        /// </summary>
+        public TimeSpan AssemblyCleanupDuration { get; internal set; }
+
+        /// <summary>
         /// Gets a value indicating whether this assembly has an executable <c>AssemblyCleanup</c> method.
         /// </summary>
         public bool HasExecutableCleanupMethod
@@ -136,6 +148,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                     // Perform a check again.
                     if (!this.IsAssemblyInitializeExecuted)
                     {
+                        Stopwatch watch = Stopwatch.StartNew();
                         try
                         {
                             this.AssemblyInitializeMethod.InvokeAsSynchronousTask(null, testContext);
@@ -147,6 +160,8 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                         finally
                         {
                             this.IsAssemblyInitializeExecuted = true;
+                            watch.Stop();
+                            this.AssemblyInitializeDuration = watch.Elapsed;
                         }
                     }
                 }
@@ -206,6 +221,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
 
             lock (this.assemblyInfoExecuteSyncObject)
             {
+                Stopwatch watch = Stopwatch.StartNew();
                 try
                 {
                     this.AssemblyCleanupMethod.InvokeAsSynchronousTask(null);
@@ -236,6 +252,11 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                         this.AssemblyCleanupMethod.Name,
                         errorMessage,
                         StackTraceHelper.GetStackTraceInformation(realException)?.ErrorStackTrace);
+                }
+                finally
+                {
+                    watch.Stop();
+                    this.AssemblyCleanupDuration = watch.Elapsed;
                 }
             }
         }

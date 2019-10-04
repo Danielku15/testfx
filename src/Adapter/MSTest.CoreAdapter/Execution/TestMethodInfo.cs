@@ -509,6 +509,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
             Debug.Assert(classInstance != null, "classInstance != null");
             Debug.Assert(result != null, "result != null");
 
+            Stopwatch watch = Stopwatch.StartNew();
             var testCleanupMethod = this.Parent.TestCleanupMethod;
             try
             {
@@ -576,6 +577,11 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                 result.Outcome = outcome;
                 result.TestFailureException = new TestFailedException(outcome.ToUnitTestOutcome(), cleanupError.ToString(), finalStackTraceInfo);
             }
+            finally
+            {
+                watch.Stop();
+                result.TestCleanupMethodDuration = watch;
+            }
         }
 
         private string GetTestCleanUpExceptionMessage(MethodInfo testCleanupMethod, Exception exception)
@@ -612,6 +618,7 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
             Debug.Assert(classInstance != null, "classInstance != null");
             Debug.Assert(result != null, "result != null");
 
+            Stopwatch watch = Stopwatch.StartNew();
             MethodInfo testInitializeMethod = null;
             try
             {
@@ -657,6 +664,11 @@ namespace Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.Execution
                     result.Outcome = TestTools.UnitTesting.UnitTestOutcome.Failed;
                     result.TestFailureException = new TestFailedException(UnitTestOutcome.Failed, errorMessage, stackTrace);
                 }
+            }
+            finally
+            {
+                watch.Stop();
+                result.TestInitializeMethodDuration = watch.Elapsed;
             }
 
             return false;
